@@ -8,7 +8,7 @@
     <groupId>io.github.flozano.mustache</groupId>
     <artifactId>mustache-spring-view</artifactId>
     <packaging>jar</packaging>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.1</version>
     <name>mustache spring view</name>
     <description>a spring view for the mustache templating language http://mustache.github.com/
     </description>
