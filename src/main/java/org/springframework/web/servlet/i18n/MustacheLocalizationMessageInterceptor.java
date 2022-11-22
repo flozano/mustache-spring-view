@@ -15,14 +15,6 @@
  */
 package org.springframework.web.servlet.i18n;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceAware;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -31,19 +23,25 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceAware;
+import org.springframework.web.servlet.AsyncHandlerInterceptor;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.ModelAndView;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 /**
- * Spring Interceptor to add a model attribute, so a Mustache template can access the Spring
- * MessageSource for localized messages.
- * <p/>
- * e.g. {{#i18n}}labels.global.mustache [arg1]...[argN]{{/i18n}}
+ * Spring Interceptor to add a model attribute, so a Mustache template can
+ * access the Spring MessageSource for localized messages. e.g.
+ * {{#i18n}}labels.global.mustache [arg1]...[argN]{{/i18n}}
  */
-public abstract class MustacheLocalizationMessageInterceptor extends HandlerInterceptorAdapter implements
-        MessageSourceAware {
+public abstract class MustacheLocalizationMessageInterceptor implements AsyncHandlerInterceptor, MessageSourceAware {
 
     /**
-     * Default key to be used in message templates.
-     * <p/>
-     * e.g. {{i18n}}internationalize.this.key.please{{/i18n}}
+     * Default key to be used in message templates. e.g.
+     * {{i18n}}internationalize.this.key.please{{/i18n}}
      */
     public static final String DEFAULT_MODEL_KEY = "i18n";
 
@@ -54,7 +52,6 @@ public abstract class MustacheLocalizationMessageInterceptor extends HandlerInte
 
     private MessageSource messageSource;
     private LocaleResolver localeResolver;
-
 
     protected final void localize(final HttpServletRequest request, String frag, Writer out) throws IOException {
         final Locale locale = localeResolver.resolveLocale(request);
@@ -67,17 +64,14 @@ public abstract class MustacheLocalizationMessageInterceptor extends HandlerInte
     protected abstract Object createHelper(final HttpServletRequest request);
 
     @Override
-    public void postHandle(final HttpServletRequest request, final HttpServletResponse response,
-                           final Object handler,
-                           final ModelAndView modelAndView) throws Exception {
+    public void postHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler,
+            final ModelAndView modelAndView) throws Exception {
 
         if (modelAndView != null) {
             modelAndView.addObject(messageKey, createHelper(request));
         }
 
-        super.postHandle(request, response, handler, modelAndView);
     }
-
 
     /**
      * Split key from (optional) arguments.
@@ -95,9 +89,7 @@ public abstract class MustacheLocalizationMessageInterceptor extends HandlerInte
     }
 
     /**
-     * Split args from input string.
-     * <p/>
-     * localization_key [param1] [param2] [param3]
+     * Split args from input string. localization_key [param1] [param2] [param3]
      *
      * @param key
      * @return List of extracted parameters
@@ -114,8 +106,8 @@ public abstract class MustacheLocalizationMessageInterceptor extends HandlerInte
     /**
      * Define custom key to access i18n messages in your Mustache template.
      *
-     * @param messageKey the key used in the template. For example if the messageKey is 'label' then in the
-     *                   template you would use:
+     * @param messageKey the key used in the template. For example if the messageKey
+     *                   is 'label' then in the template you would use:
      *                   <p/>
      *                   {{#label}}labels.global.mustache{{/label}}
      *                   <p/>
@@ -125,6 +117,7 @@ public abstract class MustacheLocalizationMessageInterceptor extends HandlerInte
         this.messageKey = messageKey;
     }
 
+    @Override
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
@@ -132,6 +125,5 @@ public abstract class MustacheLocalizationMessageInterceptor extends HandlerInte
     public void setLocaleResolver(LocaleResolver localeResolver) {
         this.localeResolver = localeResolver;
     }
-
 
 }

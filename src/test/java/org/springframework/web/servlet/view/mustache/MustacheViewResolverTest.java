@@ -15,19 +15,17 @@
  */
 package org.springframework.web.servlet.view.mustache;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+
 @RunWith(MockitoJUnitRunner.class)
 public class MustacheViewResolverTest {
 

@@ -3,9 +3,17 @@
  */
 package org.springframework.web.servlet.view.mustache.jmustache;
 
-import com.samskivert.mustache.Mustache;
-import com.samskivert.mustache.Mustache.Lambda;
-import com.samskivert.mustache.Template;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
+import java.io.Writer;
+import java.util.Locale;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -13,18 +21,14 @@ import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.Writer;
-import java.util.Locale;
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Mustache.Lambda;
+import com.samskivert.mustache.Template;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+
 public class LocalizationMessageInterceptorTest {
 
     private MessageSource messageSource;

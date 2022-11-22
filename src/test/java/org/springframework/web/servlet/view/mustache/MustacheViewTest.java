@@ -15,24 +15,23 @@
  */
 package org.springframework.web.servlet.view.mustache;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Map;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import jakarta.servlet.http.HttpServletResponse;
+
+
 @RunWith(MockitoJUnitRunner.class)
 public class MustacheViewTest {
 

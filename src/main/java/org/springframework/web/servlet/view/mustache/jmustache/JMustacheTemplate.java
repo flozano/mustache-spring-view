@@ -21,9 +21,7 @@ import org.springframework.web.servlet.view.mustache.MustacheTemplateException;
 
 import java.io.Writer;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+
 public class JMustacheTemplate implements MustacheTemplate {
 
     private final Template template;

@@ -15,23 +15,24 @@
  */
 package org.springframework.web.servlet.view.mustache.java;
 
-import com.github.mustachejava.MustacheException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
+import com.github.mustachejava.MustacheException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MustacheJTemplateFactoryTest {
@@ -87,7 +88,7 @@ public class MustacheJTemplateFactoryTest {
                 .when(resource)
                 .getInputStream();
 
-        doReturn(TEST_TEMPLATE.getFile()).when(resource).getFile();
+        // unnecessary ? // doReturn(TEST_TEMPLATE.getFile()).when(resource).getFile();
 
         assertNotNull(templateFactory.getTemplate("test_template"));
         assertEquals(templateNameCaptor.getValue(), "prefix/test_template");

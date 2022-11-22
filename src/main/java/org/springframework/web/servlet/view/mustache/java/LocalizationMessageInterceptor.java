@@ -15,28 +15,27 @@
  */
 package org.springframework.web.servlet.view.mustache.java;
 
-import com.google.common.base.Function;
-import com.google.common.base.Throwables;
-import org.springframework.web.servlet.i18n.MustacheLocalizationMessageInterceptor;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.function.Function;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+import org.springframework.web.servlet.i18n.MustacheLocalizationMessageInterceptor;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+
 public class LocalizationMessageInterceptor extends MustacheLocalizationMessageInterceptor {
 
     @Override
     protected Object createHelper(final HttpServletRequest request) {
         return new Function<String, String>() {
+            @Override
             public String apply(String input) {
                 final StringWriter out = new StringWriter();
                 try {
                     localize(request, input, out);
                 } catch (IOException e) {
-                    Throwables.propagate(e);
+                    throw new RuntimeException(e);
                 }
                 return out.toString();
             }

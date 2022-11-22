@@ -28,9 +28,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+
 public class JMustacheTemplateLoaderTest {
 
     private static final ClassPathResource TEST_TEMPLATE = new ClassPathResource("/test-template.html",

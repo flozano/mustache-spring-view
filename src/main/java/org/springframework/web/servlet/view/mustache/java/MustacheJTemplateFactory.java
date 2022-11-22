@@ -15,8 +15,13 @@
  */
 package org.springframework.web.servlet.view.mustache.java;
 
-import com.github.mustachejava.DefaultMustacheFactory;
-import com.github.mustachejava.MustacheException;
+import static java.lang.System.getProperty;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.Optional;
+
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -24,43 +29,40 @@ import org.springframework.web.servlet.view.mustache.MustacheTemplate;
 import org.springframework.web.servlet.view.mustache.MustacheTemplateException;
 import org.springframework.web.servlet.view.mustache.MustacheTemplateFactory;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
-import static com.google.common.base.Objects.firstNonNull;
-import static java.lang.System.getProperty;
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.MustacheException;
 
 /**
- * Uses the spring resource loader to find template files.
- * <p/>
- * The prefix is set from the view resolver to handle partials as the path to
- * the parent will be fully qualified, but partials within the parent will not
- * be.
+ * Uses the spring resource loader to find template files. The prefix is set
+ * from the view resolver to handle partials as the path to the parent will be
+ * fully qualified, but partials within the parent will not be.
  *
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- * @author Eric D. White <eric@ericwhite.ca>
+ * @author Sean Scanlon
+ * @author Eric D. White
  */
-public class MustacheJTemplateFactory extends DefaultMustacheFactory implements
-        ResourceLoaderAware, MustacheTemplateFactory {
+public class MustacheJTemplateFactory extends DefaultMustacheFactory
+        implements ResourceLoaderAware, MustacheTemplateFactory {
 
     private ResourceLoader resourceLoader;
     private String prefix = "";
-    private String encoding = firstNonNull(getProperty("mustache.template.encoding"), "UTF-8");
+    private String encoding = Optional.ofNullable(getProperty("mustache.template.encoding")).orElse("UTF-8");
 
-
+    @Override
     public void setSuffix(String suffix) {
         //
     }
 
+    @Override
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
 
+    @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
     }
 
+    @Override
     public MustacheTemplate getTemplate(String templateURL) throws MustacheTemplateException {
         return new MustacheJTemplate(this.compile(templateURL));
     }
@@ -80,13 +82,11 @@ public class MustacheJTemplateFactory extends DefaultMustacheFactory implements
     }
 
     /**
-     * This is to handle partials within templates that have been prefixed in
-     * the View Resolver.
-     * <p/>
-     * As the parent may have a prefix, we want partials declared to also use
-     * the same prefix without explicitly specifying that prefix in the parent
-     * template.
-     * <p/>
+     * This is to handle partials within templates that have been prefixed in the
+     * View Resolver.
+     * As the parent may have a prefix, we want partials declared to also use the
+     * same prefix without explicitly specifying that prefix in the parent template.
+     * 
      * <pre>
      * e.g. WEB-INF/views/parent.html
      * Want this
@@ -107,6 +107,5 @@ public class MustacheJTemplateFactory extends DefaultMustacheFactory implements
         }
         return this.prefix + resourceName;
     }
-
 
 }

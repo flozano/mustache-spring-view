@@ -15,9 +15,7 @@
  */
 package org.springframework.web.servlet.view.mustache;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+
 public interface MustacheTemplate {
 
     public void execute(java.lang.Object context, java.io.Writer out) throws MustacheTemplateException;

@@ -15,18 +15,17 @@
  */
 package org.springframework.web.servlet.view.mustache.jmustache;
 
-import com.samskivert.mustache.Mustache;
+import java.io.Reader;
+
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.mustache.MustacheTemplate;
 import org.springframework.web.servlet.view.mustache.MustacheTemplateException;
 import org.springframework.web.servlet.view.mustache.MustacheTemplateFactory;
 
-import java.io.Reader;
+import com.samskivert.mustache.Mustache;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+
 public class JMustacheTemplateFactory implements MustacheTemplateFactory, InitializingBean {
 
     private JMustacheTemplateLoader templateLoader;
@@ -37,6 +36,16 @@ public class JMustacheTemplateFactory implements MustacheTemplateFactory, Initia
     private String prefix = "";
     private String suffix = "";
 
+    public JMustacheTemplateFactory(JMustacheTemplateLoader templateLoader) {
+        setTemplateLoader(templateLoader);
+    }
+
+    @Deprecated
+    public JMustacheTemplateFactory() {
+
+    }
+
+    @Override
     public MustacheTemplate getTemplate(String templateURL) throws MustacheTemplateException {
         try {
             final Reader templateReader = templateLoader.getTemplate(templateURL);
@@ -47,6 +56,7 @@ public class JMustacheTemplateFactory implements MustacheTemplateFactory, Initia
     }
 
 
+    @Override
     public void afterPropertiesSet() throws Exception {
         templateLoader.setPrefix(prefix);
         templateLoader.setSuffix(suffix);
@@ -59,23 +69,24 @@ public class JMustacheTemplateFactory implements MustacheTemplateFactory, Initia
     }
 
     // @Override
+    @Override
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
 
     // @Override
+    @Override
     public void setSuffix(String suffix) {
         this.suffix = suffix;
     }
 
-    @Required
+    @Autowired
     public void setTemplateLoader(JMustacheTemplateLoader templateLoader) {
         this.templateLoader = templateLoader;
     }
 
     /**
      * Whether or not standards mode is enabled.
-     * <p/>
      * disabled by default.
      */
     public void setStandardsMode(boolean standardsMode) {
@@ -84,7 +95,6 @@ public class JMustacheTemplateFactory implements MustacheTemplateFactory, Initia
 
     /**
      * Whether or not HTML entities are escaped by default.
-     * <p/>
      * default is true.
      */
     public void setEscapeHTML(boolean escapeHTML) {

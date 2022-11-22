@@ -1,19 +1,20 @@
 package org.springframework.web.servlet.view.mustache.jmustache;
 
-import com.samskivert.mustache.Mustache;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.web.servlet.view.mustache.MustacheTemplateException;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.FileNotFoundException;
 import java.io.Reader;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.web.servlet.view.mustache.MustacheTemplateException;
+
+import com.samskivert.mustache.Mustache;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JMustacheTemplateFactoryTest {

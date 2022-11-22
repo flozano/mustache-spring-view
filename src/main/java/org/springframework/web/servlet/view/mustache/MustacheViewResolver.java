@@ -15,20 +15,23 @@
  */
 package org.springframework.web.servlet.view.mustache;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.AbstractTemplateViewResolver;
 import org.springframework.web.servlet.view.AbstractUrlBasedView;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+
 public class MustacheViewResolver extends AbstractTemplateViewResolver implements ViewResolver {
 
     private MustacheTemplateFactory templateFactory;
 
     public MustacheViewResolver() {
         setViewClass(MustacheView.class);
+    }
+
+    public MustacheViewResolver(MustacheTemplateFactory templateFactory) {
+        this();
+        setTemplateFactory(templateFactory);
     }
 
     @Override
@@ -47,7 +50,7 @@ public class MustacheViewResolver extends AbstractTemplateViewResolver implement
         return view;
     }
 
-    @Required
+    @Autowired
     public void setTemplateFactory(MustacheTemplateFactory templateFactory) {
         this.templateFactory = templateFactory;
     }

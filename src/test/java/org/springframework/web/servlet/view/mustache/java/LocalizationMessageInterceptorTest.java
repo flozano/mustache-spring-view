@@ -3,7 +3,17 @@
  */
 package org.springframework.web.servlet.view.mustache.java;
 
-import com.google.common.base.Function;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
+import java.util.Locale;
+import java.util.function.Function;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -11,17 +21,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
 public class LocalizationMessageInterceptorTest {
 
     private MessageSource messageSource;
@@ -58,7 +61,7 @@ public class LocalizationMessageInterceptorTest {
         verify(modelAndView).addObject(eq(messageKey), captor.capture());
 
         // exercise the in-lined Lambda
-        final Function<String, String> function = (Function<String, String>) captor.getValue();
+        final Function<String, String> function = captor.getValue();
         assertNotNull(function);
 
 

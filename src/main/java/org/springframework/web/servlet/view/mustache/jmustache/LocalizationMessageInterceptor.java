@@ -15,22 +15,23 @@
  */
 package org.springframework.web.servlet.view.mustache.jmustache;
 
-import com.samskivert.mustache.Mustache;
-import com.samskivert.mustache.Template;
-import org.springframework.web.servlet.i18n.MustacheLocalizationMessageInterceptor;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+import org.springframework.web.servlet.i18n.MustacheLocalizationMessageInterceptor;
+
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+
 public class LocalizationMessageInterceptor extends MustacheLocalizationMessageInterceptor {
 
     @Override
     protected Object createHelper(final HttpServletRequest request) {
         return new Mustache.Lambda() {
+            @Override
             public void execute(Template.Fragment frag, Writer out) throws IOException {
                 localize(request, frag.execute(), out);
             }

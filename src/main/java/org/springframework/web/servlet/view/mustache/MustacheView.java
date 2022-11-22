@@ -15,17 +15,15 @@
  */
 package org.springframework.web.servlet.view.mustache;
 
-import com.samskivert.mustache.Template;
-import org.springframework.web.servlet.view.AbstractTemplateView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
 import java.util.Map;
 
-/**
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- */
+import org.springframework.web.servlet.view.AbstractTemplateView;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+
 public class MustacheView extends AbstractTemplateView {
 
     private MustacheTemplate template;
