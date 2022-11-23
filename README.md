@@ -1,17 +1,18 @@
-[Mustache.js](http://mustache.github.com/mustache.5.html) View for [Spring Web MVC](http://static.springsource.org/spring/docs/4.0.x/spring-framework-reference/html/mvc.html)
+[Mustache.js](http://mustache.github.com/mustache.5.html) View for [Spring Web MVC 6.0](https://docs.spring.io/spring-framework/docs/6.0.x/reference/html/web.html#mvc)
 ============================================================================
+
+This is a minimal fork from https://github.com/sps/mustache-spring-view to make it work with Spring 6.0.
+
 Supports both [jmustache](https://github.com/samskivert/jmustache) and [mustache.java](https://github.com/spullara/mustache.java)
 
-[![Build Status](https://travis-ci.org/sps/mustache-spring-view.png?branch=master)](https://travis-ci.org/sps/mustache-spring-view)
-[![Coverage Status](https://coveralls.io/repos/sps/mustache-spring-view/badge.png?branch=master)](https://coveralls.io/r/sps/mustache-spring-view?branch=master)
 
 Maven Dependency
 -----------------
 
     <dependency>
-        <groupId>com.github.sps.mustache</groupId>
+        <groupId>io.github.flozano.mustache</groupId>
         <artifactId>mustache-spring-view</artifactId>
-        <version>1.3</version>
+        <version>2.0.0</version>
     </dependency>
 
     <!-- jmustache -->
@@ -23,7 +24,7 @@ Maven Dependency
 
     <!-- mustache.java -->
     <dependency>
-		<groupId>com.github.spullara.mustache.java</groupId>
+	<groupId>com.github.spullara.mustache.java</groupId>
         <artifactId>compiler</artifactId>
         <version>${mustache.java.version}</version>
     </dependency>
@@ -76,4 +77,6 @@ Localization Support
 
 Thanks
 ---------------
+Thanks to [Sean Scanlon](https://github.com/sps) for writing this in the first place!
 Thanks to [Eric White](https://github.com/ericdwhite) for [forking](https://github.com/ericdwhite/mustache.java-spring-webmvc/) this code base and providing the mustache.java implementation.
+
